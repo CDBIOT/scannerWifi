@@ -1,0 +1,138 @@
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=auto">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Relógio</title>
+<link href="css" rel="stylesheet">
+</head>
+
+<body onload="startTime()">
+
+<script type="text/javascript">
+    function startTime() {
+        var today=new Date();
+        var h=today.getHours();
+        var m=today.getMinutes();
+        var s=today.getSeconds();
+        // add a zero in front of numbers<10
+        m=checkTime(m);
+        s=checkTime(s);
+        document.getElementById('txt').innerHTML=h+":"+m+":"+s;
+        t=setTimeout('startTime()',500);
+    }
+   
+    function checkTime(i){
+    if (i<10) {
+        i="0" + i;
+    }
+        return i;
+    }
+    </script>
+
+<script type="text/javascript">
+    function setdisp() {
+      // var disp = id = "disp";
+        var hd=document.getElementById('disp').value;
+        var md=document.getElementById('disp').value;
+        var sd=document.getElementById('disp').value;
+        // add a zero in front of numbers<10
+       // m=checkTime(m);
+       // s=checkTime(s);
+        document.getElementById('disp').innerHTML=hd+":"+md+":"+sd;
+    }
+    </script>
+
+    <script language="JavaScript">
+        var reqStatus = new XMLHttpRequest();
+        reqStatus.onreadystatechange = function() {
+          if (this.readyState == 4) {
+            if (this.status == 200 && this.responseText != null) {
+              if(this.responseText == 1) {
+                document.getElementById("rele").innerText = "Ligado";
+                document.getElementById("rele").style.background = "rgb(170, 236, 83)";
+              } else {
+                document.getElementById("rele").innerText = "Desligado";
+                document.getElementById("rele").style.background = "rgb(227, 0, 14)";
+              }
+            } else {
+              alert("Falha obtendo status do relé.");
+            }
+          }
+        }
+        function relayStatus() {
+          reqStatus.open("GET", "/relayStatus", true);
+          reqStatus.send(null);
+          window.setTimeout("relayStatus()", 2000);
+        }
+        var reqSet = new XMLHttpRequest();
+        var set = 0;
+        reqSet.onreadystatechange = function() {
+          if (this.readyState == 4) {
+            if (this.status == 200 && this.responseText != null) {
+              if(this.responseText == 1) {
+                document.getElementById("rele").innerText = "Ligado";
+                document.getElementById("rele").style.background = "rgb(170, 236, 83)";
+              } else {
+                document.getElementById("rele").innerText = "Desligado";
+                document.getElementById("rele").style.background = "rgb(227, 0, 14)";
+              }
+            } else {
+              alert("Falha definindo status do relé.");
+            }
+          }
+        }
+        function setRelay(s) {
+          reqSet.open("GET", "/relaySet?set=" + s, true);
+          reqSet.send(null);
+        }
+      </script>
+    </head>
+    <body onLoad="relayStatus()">
+
+      <h2>
+        <a href="/">Home</a> |
+        <a href="/relay">Relé</a> |
+        <a href="/fileList">Arquivos</a> |
+        <a href="/config">Configuração</a> |
+        <a href="/reboot" onclick="return confirm('Reiniciar ESPRelé?')">Reiniciar</a>
+      </h2>
+      <h3>
+      <table>
+        <tr>
+          <th>Referência</th><td>#reference#</td>
+        </tr>
+        
+      </table>
+      </h3>
+    <h1>Relogio IOT</h1>
+    <h2><a href="/">Home</a> |    </h2>
+
+<form action="Relogio" method="post">
+<h3>
+<table>
+<tr>
+<th> Hora </th> <td><h2 id = "txt"> </h2></td>
+</tr>
+
+<tr><th> Disparo </th> 
+<td><input type="text" id="disp"  style="text-align: center;" value="" maxlength="16" ></td> <td><h2 hd="disp"></h2></td></tr>
+<tr><th> Tempo ligado </th>
+<td><input type="text" id="tempo"  style="text-align: center;" value="" maxlength="16" ></td> <td><h2 id="tempo"></h2></td></tr>
+<th rowspan="2">Estado</th>
+<td><span id="rele">N/D</span></td>
+</tr>
+<tr>
+<td>
+<input type="button" id="btnOn" value="Ligar" onClick="setRelay(1)">
+<input type="button" id="btnOff" value="Desligar" onClick="setRelay(0)">
+<input type="button" id="btndisp" value="Setar" onClick="setdisp()">
+</td>
+</tr>
+</h3>
+</table>
+    
+</form>
+</body>
+</html>

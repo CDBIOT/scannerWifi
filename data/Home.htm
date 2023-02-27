@@ -1,0 +1,34 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>SCAN com JSON & SPIFFS</title>
+  <link href="css" rel="stylesheet">
+</head>
+<body>
+  <h1>Configuração com JSON & SPIFFS</h1>
+  <h2>
+    <a href="/">Home</a> |
+    <a href="Config">Config</a> |
+    <a href="Monitor">Monitor</a> |
+    <a href="Grafico">Grafico</a> |
+    <a href="Relogio">Relogio</a> |
+    <a href="Temperatura">Temperatura</a> |
+    <a href="LOG">CAN</a> |
+    <a href="reconfig" onclick="return confirm('Reconfigurar módulo?')">Reconfigurar</a> |
+    <a href="reboot" onclick="return confirm('Reiniciar módulo?')">Reiniciar</a>
+  </h2>
+  <h3>
+  <table>
+    <tr><th colspan="2" class="msg">Bem-vindo à Interface Web</th></tr>
+    <tr><th>Identificação</th><td>#id#</td></tr>
+    <tr><th>LED</th><td>#led#</td></tr>
+    <tr><th>SSID</th><td>#ssid#</td></tr>
+    <tr><th>Senha</th><td>#pw#</td></tr>
+    <tr><th>IP Interno</th><td>#sysIP#</td></tr>
+    <tr><th>IP Cliente</th><td>#clientIP#</td></tr>
+    <tr><th>Navegador</th><td colspan="3">#userAgent#</td></tr>
+  </table>
+  </h3>
+</body>
+</html>

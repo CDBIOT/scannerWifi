@@ -1,0 +1,55 @@
+
+<html>
+<head>
+<meta charset="UTF-8">	
+<meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'/> 
+<title>Monitor</title>
+<link href="css" rel="stylesheet">
+</head>
+<body onload="refreshTemperature()">
+ 
+<script type='text/javascript'>
+	function refreshTemperature()
+	{
+	  var xmlhttp = new XMLHttpRequest();
+	  xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == XMLHttpRequest.DONE && xmlhttp.status == 200){
+		var myObj = JSON.parse(this.responseText);	
+        document.getElementById('temperature').innerHTML= myObj.temperature + 'C';
+		}
+	  };
+	  xmlhttp.open('GET', "temperature", true);
+	  xmlhttp.send();
+	}
+  </script>
+
+<h1>Monitor Temp</h1>
+<h2>
+<a href="/">Home</a> |
+<p id='temperature'>Temp : </p>
+</h2>
+<h3>
+<table>
+<tr><th>Id </th><td>#id#</td><th>Id  </th><td>#id#</td></tr>
+<tr><th>TEMP </th><td><h2 id='temperature'></h2></td><th>RPM </th><td>#led#</td></tr>
+<tr><th>CAN</th><td>#id#</td><th>TEMP</th><td>#led#</td></tr>
+
+<tr><th>LED1</th><td>#led#</td><th>FUEL</th><td>#led#</td></tr>
+<tr><th>LED2</th><td>#led#</td><th>PEDAL</th><td>#led#</td></tr>
+<tr><th>LED3</th><td>#led#</td><th>TRIP</th><td>#led#</td></tr>
+<tr><th>LED4</th><td>#led#</td><th>SPEED</th><td>#led#</td></tr>
+<tr><th>BOT1</th><td>#led#</td><th>BOT3</th><td>#led#</td></tr>
+<tr><th>BOT2</th><td>#led#</td><th>BOT4</th><td>#userAgent#</td></tr>
+<tr><th>BOT3</th><td>#led#</td><th>HORA</th><td><h2 id="txt"></h2></td></tr>
+<tr><th>BOT4</th><td>#userAgent#</td></tr>
+<tr><th style="width: 25%;">Ações</th>
+	<td>
+	<button type="button" onClick="refreshTemperature()">Temperatura</button>
+	<button type="button" onClick="logReset()">Apagar</button>
+	</td>
+</tr>
+</table>
+</h3>
+</body>
+
+</html>

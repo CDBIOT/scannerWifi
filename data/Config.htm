@@ -1,0 +1,49 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=auto">
+  <title>IeC 103 - Configuração com JSON & SPIFFS</title>
+  <link href="css" rel="stylesheet">
+</head>
+<body>
+  <h1>IeC 103 - Configuração com JSON & SPIFFS</h1>
+  <h2>
+    <a href="/">Home</a> |
+    <a href="config">Configuração</a> |
+    <a href="reconfig" onclick="return confirm('Reconfigurar módulo?')">Reconfigurar</a> |
+    <a href="reboot" onclick="return confirm('Reiniciar módulo?')">Reiniciar</a>
+  </h2>
+  <h3>
+  <form name="config" action="configSave" method="post">
+  <table>
+    <tr>
+      <th colspan="2" class="msg">Configuração</th>
+    </tr>
+    <tr>
+      <th>Identificação</th>
+      <td>
+        <input type="text" name="id" value="#id#" size="25" maxlength="29">
+      </td>
+    </tr>
+    <tr>
+      <th>LED</th>
+      <td>
+        <input type="radio" name="led" value="1"#ledOn#> Ligado &nbsp;&nbsp;
+        <input type="radio" name="led" value="0"#ledOff#> Desligado
+      </td>
+    </tr>
+    <tr>
+      <th rowspan="2">Wi-Fi</th>
+      <td>SSID: <input type="text" name="ssid" value="#ssid#" size="25" maxlength="29"></td>
+    </tr>
+    <tr>
+      <td>Senha: <input type="password" name="pw" size="25" maxlength="29"></td>
+    </tr>
+    <tr>
+      <th colspan="2" class="msg"><input id="save" type="submit" value="Gravar" onClick="return confirm('Gravar a configuração?')"></th>
+    </tr>
+  </table>
+  </form>
+  </h3>
+</body>
+</html>

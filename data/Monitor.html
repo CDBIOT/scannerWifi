@@ -1,0 +1,65 @@
+  
+ <html>
+<head>
+<meta charset="UTF-8">	
+<meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'/> 
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Monitor</title>
+<link href="css" rel="stylesheet">
+</head>
+<body onload="refreshCAN()">
+ 
+ <script type='text/javascript'>
+	function refreshCAN()
+	{
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+	if (xmlhttp.readyState == XMLHttpRequest.DONE && xmlhttp.status == 200){
+	var myObj = JSON.parse(this.responseText);
+	//document.getElementById('ID  ').innerText = 'CAN: ' + myObj.device +'' ;
+	document.getElementById('CAN0').innerHTML = + myObj.data[0] +'' ;
+	document.getElementById('CAN1').innerHTML = + myObj.data[1] +'' ;
+	document.getElementById('CAN2').innerHTML = '' + myObj.data[2] +'' ;
+	document.getElementById('CAN3').innerHTML = '' + myObj.data[3] +'' ;
+	document.getElementById('CAN4').innerHTML = '' + myObj.data[4] +'' ;
+	document.getElementById('CAN5').innerHTML = '' + myObj.data[5] +'' ; 
+	document.getElementById('CAN6').innerHTML = '' + myObj.data[6] +'' ;
+	document.getElementById('CAN7').innerHTML = '' + myObj.data[7] +'' ; 
+	console.log(CAN0);
+	console.log(CAN1);
+		
+		}
+	  };
+	  xmlhttp.open('GET', "CAN",true);
+	  xmlhttp.send();
+	}
+	 </script>
+
+
+<h1>Monitor</h1>
+<h2>
+<a href="/">Home</a> |
+</h2>
+<h3>
+<table>
+<tr><th>Id   <td><h2 c0 ></h2></td> </th></tr>
+<tr><th>TEMP </th><td><button type="button" onClick="refreshCAN()">LER</button></td>
+	<td><h2 id ='CAN  '></h2></td><td><h2 id ='CAN0'></h2></td><td><h2 id ='CAN1'></h2></td><td><h2 id ='CAN2'></h2></td>
+	<td><h2 id ='CAN3 '></h2></td><td><h2 id ='CAN4'></h2></td><td><h2 id ='CAN5'></h2></td><td><h2 id ='CAN6'></h2></td></tr>
+<tr><th>FUEL </th><td><button type="button" onClick="refreshCAN()">LER</button></td>
+	<td><h2 id ='CAN  '></h2></td><td><h2 id ='CAN0'></h2></td><td><h2 id ='CAN1'></h2></td><td><h2 id ='CAN2'></h2></td>
+	<td><h2 id ='CAN3 '></h2></td><td><h2 id ='CAN4'></h2></td><td><h2 id ='CAN5'></h2></td><td><h2 id ='CAN6'></h2></td></tr>
+<tr><th>TRIP </th><td><button type="button" onClick="refreshCAN()">LER</button></td>
+	<td><h2 id ='CAN  '></h2></td><td><h2 id ='CAN0'></h2></td><td><h2 id ='CAN1'></h2></td><td><h2 id ='CAN2'></h2></td>
+	<td><h2 id ='CAN3 '></h2></td><td><h2 id ='CAN4'></h2></td><td><h2 id ='CAN5'></h2></td><td><h2 id ='CAN6'></h2></td></tr>
+<tr><th>PEDAL</th><td><button type="button" onClick="refreshCAN()">LER</button></td>
+	<td><h2 id ='CAN  '></h2></td><td><h2 id ='CAN0'></h2></td><td><h2 id ='CAN1'></h2></td><td><h2 id ='CAN2'></h2></td>
+	<td><h2 id ='CAN3 '></h2></td><td><h2 id ='CAN4'></h2></td><td><h2 id ='CAN5'></h2></td><td><h2 id ='CAN6'></h2></td></tr>
+<tr><th>SPEED</th><td><button type="button" onClick="refreshCAN()">LER</button></td>
+	<td><h2 id ='CAN  '></h2></td><td><h2 id ='CAN0'></h2></td><td><h2 id ='CAN1'></h2></td><td><h2 id ='CAN2'></h2></td>
+	<td><h2 id ='CAN3 '></h2></td><td><h2 id ='CAN4'></h2></td><td><h2 id ='CAN5'></h2></td><td><h2 id ='CAN6'></h2></td></tr>
+</table>
+</h3>
+</body>
+
+</html>

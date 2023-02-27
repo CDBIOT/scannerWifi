@@ -1,0 +1,76 @@
+
+<script type="text/javascript">
+	//envia configuracoes
+	function configSave() 
+	{
+		
+		var ssid = document.getElementById('ssid').value;
+		var pw = document.getElementById('pw').value;
+	
+		var req = new XMLHttpRequest();
+		req.open("GET", "configSave", true); 
+		req.send(ssid + "\r\n" + pw + "\r\n\r\n");
+	
+		req.onreadystatechange = function() 
+		{
+			if (req.readyState == 4 && req.status == 200) 
+			{
+				if(req.responseText=="OK")
+				{
+					document.getElementById('ssid').disabled=true;
+					document.getElementById('pw').disabled=true;
+					document.getElementById('botao').disabled=true;
+					document.getElementById('msg').style.color = "green";
+					document.getElementById('msg').innerHTML = "OK: Salvo Com Sucesso!";
+					console.log(ssid).value;
+					console.log(pw).value;
+				}
+				else
+				{
+					document.getElementById('ssid').disabled=true;
+					document.getElementById('pw').disabled=true;
+					document.getElementById('botao').disabled=true;
+					document.getElementById('msg').style.color = "red";
+					document.getElementById('msg').innerHTML = "ERRO: Nao Salvou!";
+					console.log(ssid);
+					console.log(pw);
+				}
+			}
+		}
+	}
+	</script>
+	
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Configura Rede Wifi</title>
+		<meta name="viewport" content="width=device-width">
+		<link href="css" rel="stylesheet">
+		
+	  </head>
+	 
+		<body >
+		<h2><a href="/">Home</a> |</h2>
+		<h1><b>MODULO IO REMOTO COM ESP8266</b>
+		Nó Modbus TCP/IP, GPIO12 saida, GPIO5<b>03</b>, <b>04</b>, <b>06</b> e <b>16</b>.<br>
+		</h1>
+		<form action="configSave" method="post">
+		<table>
+		<tr><th colspan="2" style = "text-align: left;">CONFIGURAÇÕES GERAIS</th></tr>
+
+		<tr><th><div id="nomes">Wifi SSID:</th>
+		<td><input type="text" id="ssid" style="text-align: center;" value="" maxlength="16" ></td></tr>
+		
+		<tr><th>Wifi Password:</th>
+		<td><input type="text" id="pw"  style="text-align: center;" value="" maxlength="16" ></td></tr>
+
+		<tr><th><td>	
+		<button type="button" id="botao" onClick="return confirm('Gravar a configuração?')" > SALVAR </button>
+		<label id="msg"> </label>
+		</td></tr>
+		</form>
+		
+	</table>
+	</body>
+</html> 
+

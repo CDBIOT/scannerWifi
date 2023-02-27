@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+		<link href="css" rel="stylesheet">
+		<meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'/> 
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <title>ESP Chart JSON</title>
+    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+   
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript"> google.charts.load("current", {packages:['corechart','line']}); 
+     google.charts.setOnLoadCallback(drawChart);
+     
+
+    
+function drawChart() {
+
+  // Define the chart to be drawn.
+  $.ajax({
+       url: "/",
+       dataType: "json",
+       success: function (jsonData) {
+         
+      var dataArray = [
+           ['Dia', 'Temp'],
+         ];
+   
+         for (var i = 0; i < jsonData.length; i++) {
+           var row = [jsonData[i].Dia, jsonData[i].Temp];
+           dataArray.push(row);
+         }
+         var options = {
+           title: 'Temp por dias',
+           curveType: 'function',
+           series: {0: {"color": '#57c8f2'}}
+         };
+         
+//montando o array com os dados
+ var dataArray = google.visualization.arrayToDataTable([
+      ['Hora', 'Temp'],
+      ['01',  LOG0],
+      ['02',  LOG1],
+      ['03',  LOG2],
+      ['04',  LOG3],
+      ['04',  LOG4]
+     ]);
+
+//opcoes para o grafico linhas
+ var options = {
+ title: 'Temp por Horas',
+ hAxis: {title: 'Hora',  titleTextStyle: {color: 'red'}}//legenda na horizontal
+ };
+var data = new google.visualization.DataTable(dataArray);
+var data = google.visualization.arrayToDataTable(dataArray);
+
+//instanciando e desenhando o grafico linhas
+var linhas = new google.visualization.LineChart(document.getElementById('linhas'));
+linhas.draw(data, options);
+
+}
+});
+}
+
+</script>
+</head>
+<div class="chart-container" position: relative; height:350px; width:100%"></div>
+<div id="linhas" style="width: 900px; height: 500px;"></div>
+
+<body onload="refreshCAN()">
+
+  <h2>
+  <a href="/">Home</a> |
+  </h2>
+  
+  <script type='text/javascript'>
+    function refreshCAN()
+    {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE && xmlhttp.status == 200){
+    var myObj = JSON.parse(this.responseText);
+    //document.getElementById('ID  ').innerText = 'CAN: ' + myObj.device +'' ;
+    document.getElementById('LOG0').innerHTML = + myObj.data[0] +'' ;
+    document.getElementById('LOG1').innerHTML = + myObj.data[1] +'' ;
+    document.getElementById('LOG2').innerHTML = + myObj.data[2] +'' ;
+    document.getElementById('LOG3').innerHTML = + myObj.data[3] +'' ;
+    document.getElementById('LOG4').innerHTML = + myObj.data[4] +'' ;
+    
+    console.log(LOG0);
+    console.log(LOG1);
+    console.log(LOG2);
+    console.log(LOG4);
+      
+      }
+    };
+    xmlhttp.open('GET', "/LOG",true);
+    xmlhttp.send();
+    }
+   </script>
+  
+    
+<script type="text/javascript">
+
+     </script>
+
+<h3>
+	<table>
+	<tr><th>TEMP </th><td></td>
+		<td><h2 id ='LOG '></h2></td><td><h2 id ='LOG0'></h2></td><td><h2 id ='LOG1'></h2></td><td><h2 id ='CAN2'></h2></td>
+		<td><h2 id ='LOG3 '></h2></td><td><h2 id ='LOG4'></h2></td><td><h2 id ='LOG5'></h2></td><td><h2 id ='CAN6'></h2></td></tr>
+	
+	</table>
+	</h3>
+</body>
+</html>
